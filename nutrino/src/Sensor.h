@@ -5,11 +5,17 @@
 
 class Sensor{
     public:
-
+        virtual void begin()=0;
+        virtual void begin(int baud_rate)=0;
         virtual void readSensor()=0;
-        virtual ~Sensor(){}
+        virtual ~Sensor(){};
+
+        int getDelay();
+        void setDelay(int delay_ms);
 
     private:
+        int delay_;
+
 
 };
 
