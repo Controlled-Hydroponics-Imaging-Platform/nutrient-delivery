@@ -7,11 +7,11 @@ ultrasonic_A0266UW::ultrasonic_A0266UW (int rx, int tx, int delay_ms): rx_dpin_(
 
 }
 
-void ultrasonic_A0266UW::readSensor() override{
+void ultrasonic_A0266UW::readSensor(){
 
 }
 
-void ultrasonic_A0266UW::begin(int baud_rate) override{
+void ultrasonic_A0266UW::begin(int baud_rate){
 
     mySerial.begin(baud_rate)
     
