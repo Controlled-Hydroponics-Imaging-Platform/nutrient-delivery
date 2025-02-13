@@ -1,5 +1,4 @@
 #include "src/Ultrasonic_A02YYUW.h"
-#include "src/Sensor.h"
 
 Sensor* ultrasonic = new Ultrasonic_A02YYUW(4, 3);
 float distance;
@@ -15,5 +14,7 @@ void loop(){
     distance = ultrasonic->readSensor();
 
     Serial.println(distance);
+
+    delay(1000);
 
 }
