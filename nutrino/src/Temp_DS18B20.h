@@ -2,13 +2,13 @@
 #define TEMP_DS18B20_H
 
 #include "Sensor.h"
-#include "../lib/OneWire/OneWire.h"
-#include "../lib/DallasTemperature/DallasTemperature.h"
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
 
 class Temp_DS18B20 : public Sensor{
     public:
-        Temp_DS18B20(const OneWire& ow_bus, int delay_ms=1000);
+        Temp_DS18B20(OneWire& ow_bus, int delay_ms=1000);
         float readSensor() override;
         void begin(int baud_rate) override;
         void begin() override;

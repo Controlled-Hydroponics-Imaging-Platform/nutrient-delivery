@@ -1,7 +1,7 @@
 #include "Temp_DS18B20.h"
 #include <math.h>
 
-Temp_DS18B20::Temp_DS18B20 (const OneWire& ow_bus, int delay_ms) : oneWire_bus_(ow_bus), DS18B20_(&ow_bus){
+Temp_DS18B20::Temp_DS18B20 (OneWire& ow_bus, int delay_ms) : oneWire_bus_(ow_bus), DS18B20_(&ow_bus){
     setDelay(delay_ms);
 }
 
