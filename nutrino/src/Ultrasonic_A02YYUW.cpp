@@ -20,6 +20,7 @@ float Ultrasonic_A02YYUW::readSensor(){
             data_[0] = incoming_byte;
         }while(incoming_byte!=0xFF || mySerial_.available()>4);
 
+        // while(mySerial_.available()<4);
 
         for(int i=1; i<4;i++){
             data_[i] = mySerial_.read();

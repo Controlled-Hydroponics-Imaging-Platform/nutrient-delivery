@@ -20,14 +20,22 @@ void setup(){
 
 void loop(){
 
-    distance = ultrasonic->readSensor();
-    water_temp = DS18B20->readSensor();
+    static unsigned long timepoint = millis();
 
-    Serial.print("Distance: ");
-    Serial.println(distance);
-    Serial.print("Water Temp: ");
-    Serial.println(water_temp);
+    if(millis()-timepoint>1000U){
+      timepoint=millis();
+      distance = ultrasonic->readSensor();
+      water_temp = DS18B20->readSensor();
+  
+      Serial.print("Distance: ");
+      Serial.println(distance);
+      Serial.print("Water Temp: ");
+      Serial.println(water_temp);
 
-    delay(DS18B20->getDelay());
+      }
+
+    
+
+//    delay(DS18B20->getDelay());
 
 }
