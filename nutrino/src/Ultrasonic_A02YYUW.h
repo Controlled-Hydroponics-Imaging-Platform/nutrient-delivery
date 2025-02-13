@@ -21,8 +21,6 @@ class ultrasonic_A0266UW : public Sensor{
         unsigned char DATA_H_;
         unsigned char DATA_L_;
         unsigned char SUM_;
-        int index=0;
-
         SoftwareSerial mySerial_;
 
 }
