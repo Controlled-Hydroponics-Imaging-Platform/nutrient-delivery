@@ -9,7 +9,7 @@
 class ultrasonic_A0266UW : public Sensor{
     public:
         ultrasonic_A0266UW(int rx, int tx, int delay_ms=100);
-        void readSensor() override;
+        float readSensor() override;
         void begin(int baud_rate) override;
 
     private:
@@ -17,6 +17,12 @@ class ultrasonic_A0266UW : public Sensor{
         int tx_dpin_;
         unsigned char data_[4];
         float distance_;
+        unsigned char HEADER_;
+        unsigned char DATA_H_;
+        unsigned char DATA_L_;
+        unsigned char SUM_;
+        int index=0;
+
         SoftwareSerial mySerial_;
 
 }

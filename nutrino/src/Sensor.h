@@ -7,7 +7,7 @@ class Sensor{
     public:
         virtual void begin()=0;
         virtual void begin(int baud_rate)=0;
-        virtual void readSensor()=0;
+        virtual float readSensor()=0;
         virtual ~Sensor(){};
 
         int getDelay();

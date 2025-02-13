@@ -1,44 +1,60 @@
 #include "Ultrasonic_A02YYUW.h"
+#include <cmath>
 
 ultrasonic_A0266UW::ultrasonic_A0266UW (int rx, int tx, int delay_ms): rx_dpin_(rx), 
-                                                         tx_dpin_(tx){
+                                                                       tx_dpin_(tx){
     setDelay(delay_ms);
     mySerial_(rx_dpin_,tx_dpin_);
 
 }
 
-void ultrasonic_A0266UW::readSensor(){
+float ultrasonic_A0266UW::readSensor(){
+// Returns distance in mm
+    unsigned char incoming_byte;
 
-    do{
-        for(int i=0;i<4;i++){
-            data[i]=mySerial.read();
+    if(mySerial_.available()){
+
+        do{
+            incoming_byte = mySerial_.read();
+            data_[0] = incoming_byte;
+        }while(incoming_byte!=0xFF || mySerial_.available()>4);
+
+
+        for(int i=1; i<4;i++){
+            data_[i] = mySerial_.read();
         }
-    }while(mySerial.read()==0xff);
 
-    mySerial.flush();
+        HEADER_ = data_[0];
+        DATA_H_ = data_[1];
+        DATA_L_ = data_[2];
+        SUM_ = data_[3];
 
-    if(data[0]==0xff){
-      int sum;
-      sum=(data[0]+data[1]+data[2])&0x00FF;
-      if(sum==data[3])
-      {
-        distance=(data[1]<<8)+data[2];
-        if(distance>30)
-          {
-           Serial.print("distance=");
-           Serial.print(distance/10);
-           Serial.println("cm");
-          }else 
-             {
-               Serial.println("Below the lower limit");
-             }
-      }else Serial.println("ERROR");
-     }
 
+        if(HEADER_==0xFF){
+            int checksum=(HEADER_+DATA_H_+DATA_L_)&0x00FF;
+        
+            if(checksum==SUM_){
+                distance_=(DATA_H_<<8)+DATA_L_;
+                if(distance_>30){
+
+                    return distance_;
+                }else{
+                    Serial.println("Error Reading value from Ultrasonic A02YYUW: Below the lower limit");
+                }
+            }else{
+                Serial.println("Error Reading value from Ultrasonic A02YYUW: Checksum Failed");
+            }
+        }else{
+            Serial.println("Error Reading value from Ultrasonic A02YYUW: missaligned data frame");
+        }
+
+    }else{
+        Serial.println("Error Reading value from Ultrasonic A02YYUW:Connection Error");
+    }
+
+    return NAN;
 }
 
 void ultrasonic_A0266UW::begin(int baud_rate){
-
-    mySerial.begin(baud_rate)
-    
+    mySerial.begin(baud_rate);
 }
