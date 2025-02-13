@@ -21,9 +21,11 @@ void loop(){
     distance = ultrasonic->readSensor();
     water_temp = DS18B20->readSensor();
 
-
+    Serial.print("Distance: ");
     Serial.println(distance);
+    Serial.print("Water Temp: ");
+    Serial.println(water_temp);
 
-    delay(1000);
+    delay(DS18B20->getDelay());
 
 }
