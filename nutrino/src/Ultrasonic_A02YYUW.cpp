@@ -1,14 +1,15 @@
 #include "Ultrasonic_A02YYUW.h"
-#include <cmath>
+#include <math.h>
 
-ultrasonic_A0266UW::ultrasonic_A0266UW (int rx, int tx, int delay_ms): rx_dpin_(rx), 
-                                                                       tx_dpin_(tx){
+Ultrasonic_A02YYUW::Ultrasonic_A02YYUW (int rx, int tx, int delay_ms) : rx_dpin_(rx), 
+                                                                        tx_dpin_(tx),
+                                                                        mySerial_(rx,tx){
     setDelay(delay_ms);
-    mySerial_(rx_dpin_,tx_dpin_);
+    // mySerial_(rx_dpin_,tx_dpin_);
 
 }
 
-float ultrasonic_A0266UW::readSensor(){
+float Ultrasonic_A02YYUW::readSensor(){
 // Returns distance in mm
     unsigned char incoming_byte;
 
@@ -55,6 +56,10 @@ float ultrasonic_A0266UW::readSensor(){
     return NAN;
 }
 
-void ultrasonic_A0266UW::begin(int baud_rate){
-    mySerial.begin(baud_rate);
+void Ultrasonic_A02YYUW::begin(int baud_rate){
+    mySerial_.begin(baud_rate);
+}
+
+void Ultrasonic_A02YYUW::begin(){
+    mySerial_.begin(9600);
 }
