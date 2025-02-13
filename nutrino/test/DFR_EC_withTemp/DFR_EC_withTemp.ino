@@ -17,10 +17,10 @@
  * date  2018-03-21
  */
 
-#include "DFRobot_EC.h"
+#include "../../lib/DFRobot_EC/DFRobot_EC.h"
 #include <EEPROM.h>
-#include <OneWire.h>
-#include <DallasTemperature.h>
+#include "../../lib/OneWire/OneWire.h"
+#include "../../lib/DallasTemperature/DallasTemperature.h"
 
 #define EC_PIN A3
 float voltage,ecValue,temperature = 25;
