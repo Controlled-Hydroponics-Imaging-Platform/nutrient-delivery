@@ -10,7 +10,7 @@ class EC_DFR : public Sensor{
     public:
         EC_DFR(int ao_pin, float default_temp=25, int delay_ms=1000);
         float readSensor() override;
-        float readSensor(float temperature);
+        float readSensor(float temperature) override;
         float readSensor_voltage();
 
         void begin(int baud_rate) override;

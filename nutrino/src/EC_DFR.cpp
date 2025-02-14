@@ -19,7 +19,7 @@ float EC_DFR::readSensor(float temperature){
 
   volatage_= analogRead(ao_pin_)/1024.0*5000;
 
-  temperature = isnan(temperature_) ?  default_temperature_: temperature;
+  temperature = isnan(temperature) ?  default_temperature_: temperature;
 
   ec_= DFR_EC_.readEC(volatage_, temperature);
   
@@ -33,7 +33,7 @@ float EC_DFR::readSensor_voltage(){
 }
 
 void EC_DFR::calibrate(float voltage, float temperature){
-  temperature = isnan(temperature_) ?  default_temperature_: temperature;
+  temperature = isnan(temperature) ?  default_temperature_: temperature;
   DFR_EC_.calibration(voltage, temperature);
 }
 
