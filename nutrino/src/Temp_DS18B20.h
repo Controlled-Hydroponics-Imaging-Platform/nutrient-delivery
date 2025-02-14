@@ -16,7 +16,6 @@ class Temp_DS18B20 : public Sensor{
 
     private:
         int ow_dpin_;
-        unsigned char data_[4];
         float temperature_;
         OneWire& oneWire_bus_;
         DallasTemperature DS18B20_;

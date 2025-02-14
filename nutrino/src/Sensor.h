@@ -8,6 +8,7 @@ class Sensor{
         virtual void begin()=0;
         virtual void begin(int baud_rate)=0;
         virtual float readSensor()=0;
+        virtual float readSensor(float);
         virtual ~Sensor(){};
 
         int getDelay();
