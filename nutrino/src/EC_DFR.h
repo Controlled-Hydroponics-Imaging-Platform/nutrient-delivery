@@ -20,7 +20,7 @@ class EC_DFR : public Sensor{
 
     private:
         int ao_pin_;
-        float volatage_;
+        float voltage_;
         float ec_;
         float default_temperature_;
         DFRobot_EC DFR_EC_;
