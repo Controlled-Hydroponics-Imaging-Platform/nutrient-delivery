@@ -18,7 +18,7 @@ void Waterflow_SEN0549::begin() {
 
     });
 
-    lastUpdateTime = duration_cast<milliseconds>(steady_clock::now().time_since_epocj()).count();
+    lastUpdateTime = duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count();
 }
 
 void Waterflow_SEN0549::handlePulse() {
@@ -30,8 +30,16 @@ void Waterflow_SEN0549::update() {
 
     if (currentTime - lastUpdateTime >= interval) {
         unsigned int count = pulseCount.exchange(0);
-        flowRate_L_per_h = (count * 1000.0/interval) / pulsesPerLiter * 3600.0; // L/h
-        totalLiters += (count/pulsesPerLiter);
+    
+        flowRate_L_per_s = (count * 1000.0 / interval) / pulsesPerLiter;
+
+        // Also update L/h based on L/s
+        flowRate_L_per_h = flowRate_L_per_s * 3600.0; // dependent on L/s
+        // flowRate_L_per_h = (count * 1000.0/interval) / pulsesPerLiter * 3600.0; //independent of L/s
+        
+        
+        totalLiters += (count / pulsesPerLiter);
+
         lastUpdateTime = currentTime;
 
     } 

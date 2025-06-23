@@ -10,6 +10,7 @@ class Waterflow_SEN0549 : public Sensor {
         void begin() override;
         void update();
         float getFlowRateLitersPerHour() const override;
+        float getFlowRateLitersPerSecond() const override; //choose which is more useful
         float getTotalLiters() const override;
         void handlePulse() override;
         ~Waterflow_SEN0549(){};
@@ -19,6 +20,7 @@ class Waterflow_SEN0549 : public Sensor {
         float pulsesPerLiter;
         std::atomic<unsigned int> pulseCount;
         float flowRate_L_per_h;
+        float flowRate_L_per_s; // choose which is more useful
         float totalLiters;
         unsigned long lastUpdateTime;
         unsigned long interval;
