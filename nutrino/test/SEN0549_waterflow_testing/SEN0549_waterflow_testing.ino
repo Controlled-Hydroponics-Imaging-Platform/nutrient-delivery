@@ -43,6 +43,10 @@ void loop() {
 
     // Output
     Serial.print("Flow rate: ");
+    Serial.print(flow_L_per_s, 2);
+    Serial.print(" L/s\t");
+
+    Serial.print("Flow rate: ");
     Serial.print(flowRate_L_per_h, 2);
     Serial.print(" L/h\t");
 
