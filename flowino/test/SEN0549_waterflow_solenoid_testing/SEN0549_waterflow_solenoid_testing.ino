@@ -46,7 +46,7 @@ void setup() {
   Serial.println("Enter how many liters of water you would like to be sent to the tank, Press ENTER");
   while (Serial.available() == 0) ;    
   wantedLiters = Serial.parseFloat();
-  Serial.println("Please turn on water manually. Solenoid valve is still open.")
+  Serial.println("Please turn on water manually. Solenoid valve is still open.");
   delay(1000); // pause before loop (could add testing script)
 }
 
