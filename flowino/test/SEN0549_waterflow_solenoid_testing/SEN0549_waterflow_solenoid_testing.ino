@@ -15,12 +15,13 @@ float wantedLiters = 0;
 // Timing
 unsigned long lastUpdateTime = 0;
 const unsigned long interval = 1000;  // in ms
+bool messageSent = false;
 
 void setup() {
   Serial.begin(9600);
   attachInterrupt(digitalPinToInterrupt(3), pulse, RISING);
   pinMode(12,OUTPUT); // RELAY PIN   
-  digitalWrite(12,HIGH); // Normally OFF Only For Chanies Relay Module
+  digitalWrite(12,LOW); // relay open, water off
   Serial.println("Ready, Set, Grow!");
 
   delay(2000); 
@@ -32,7 +33,7 @@ void setup() {
 
   pulseCount = 0;
   Serial.println("Start calibration: Let exactly 1L of water flow... Manually turn off water right after.");
-  digitalWrite(12,LOW); //relay ON
+  digitalWrite(12,HIGH); //relay closed, water on
   delay(20000);  // wait 20 seconds while user pours water
 
   noInterrupts();
@@ -43,14 +44,25 @@ void setup() {
   Serial.print("Calibration complete. New pulsesPerLiter = ");
   Serial.println(pulsesPerLiter);
 
-  Serial.println("Enter how many liters of water you would like to be sent to the tank, Press ENTER");
+  Serial.println("Enter how many liters of water you would like to be sent to the tank. Press ENTER");
   while (Serial.available() == 0) ;    
   wantedLiters = Serial.parseFloat();
   Serial.println("Please turn on water manually. Solenoid valve is still open.");
+  
+  noInterrupts();
+  pulseCount = 0;
+  totalLiters = 0.0;
+  interrupts();  
+  
   delay(1000); // pause before loop (could add testing script)
+  digitalWrite(12,HIGH); //relay closed, water on
 }
 
 void loop() {
+  if (messageSent) {
+    return;
+  }
+
   unsigned long currentTime = millis();
 
   if (currentTime - lastUpdateTime >= interval) {
