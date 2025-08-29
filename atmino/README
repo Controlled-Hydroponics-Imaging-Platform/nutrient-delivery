@@ -1,0 +1,26 @@
+How to convert cpp to uf2 to put on the rpi pico
+https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html#sdk-setup 
+in terminal:
+    mkdir build
+    cd build
+    cmake ..
+    make <file>
+
+
+
+
+
+
+Uploading .ino files on rpi pico from the Arduino IDE
+
+1. Open Arduino IDE.
+2. Go to File > Preferences and add this URL to Additional Board URLs:
+https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+Note: if you already have the ESP32 and/or ESP8266 boards URL,s you can separate the three URLs with a comma
+Click on the OK button
+3. Open the Boards Manager. Go to Tools > Board > Boards Manager…
+4. Search for “pico” and install the Raspberry Pi Pico/RP2040 boards.
+5. Now, if you go to Tools > Board, there should be a selection of Raspberry Pi Pico boards.
+6. The COM port might not show up on your first upload, so you need to tick the Show all ports option. Then, select the UF2 Board UF2 Devices option.
+
+Tutorial from: https://randomnerdtutorials.com/programming-raspberry-pi-pico-w-arduino-ide/
