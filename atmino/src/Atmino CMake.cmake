@@ -1,33 +1,11 @@
-cmake_minimum_required(VERSION 3.13)
+add_library(pico_opt4048
+    ./Lux_OPT4048.cpp
+    ./conversions.cpp
+    )
 
-# Pull in Pico SDK (expects PICO_SDK_PATH env var or pico_sdk_import.cmake)
-include(pico_sdk_import.cmake)
+target_link_libraries(pico_opt4048
+    pico_stdlib
+    hardware_i2c
+    )
 
-project(LuxSensorProject C CXX ASM)
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 17)
-
-# Initialize the SDK
-pico_sdk_init()
-
-# Add your executable (all source files go here)
-add_executable(LuxSensorProject
-    main.cpp
-    Sensor.cpp
-    LuxSensor.cpp
-)
-
-# Link with Pico libraries
-target_link_libraries(LuxSensorProject
-    pico_stdlib    # basic stdlib
-    hardware_i2c   # I2C driver
-)
-
-# Enable USB or UART stdio (you can change this depending on how you debug)
-pico_enable_stdio_usb(LuxSensorProject 1) # 1 : enabled
-pico_enable_stdio_uart(LuxSensorProject 0) # 0 : disabled
-
-# Create .uf2 file for flashing
-pico_add_extra_outputs(LuxSensorProject)
-
-# end of Cmake file
+target_include_directories(pico_opt4048 PUBLIC ./)
